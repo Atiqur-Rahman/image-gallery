@@ -1,0 +1,169 @@
+body {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: skyblue;
+}
+
+.container {
+    width: 75%;
+    background-color: white;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.galleryHeading {
+    border-bottom: 3px solid skyblue;
+    font-weight: bold;
+    padding: 15px 30px 15px 30px;
+}
+
+.imageGrid {
+    display: grid;
+    /* grid-template-columns: repeat(5, 1fr); 5 columns
+    grid-auto-rows: minmax(100px, auto); Adjust the row height as needed
+    gap: 15px;
+    padding: 30px; */
+}
+
+.image {
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* For a specific element, let's say the first item (index 0) */
+.image:nth-child(1) {
+    grid-column: 1 / span 2; /* Spans from first column to the second column */
+    grid-row: 1 / span 2; /* Spans from first row to the second row */
+}
+
+/* The rest of the elements */
+.image:not(:nth-child(1)) {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+.image.dragging {
+    transform: scale(1.05);
+}
+
+.image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.image:hover img {
+    /* transform: scale(1.05); */
+    /* background: rgba(20, 25, 30, 0.5); */
+    filter: brightness(50%);
+}
+
+.image:hover .imageCheckbox {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.image.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 254, 253, 0.5);
+    z-index: 1;
+}
+
+input[type='checkbox'] {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+}
+
+.addImage {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type='file'] {
+    display: none;
+}
+
+.deleteItems {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.deleteItems img {
+    height: 16px;
+    width: 16px;
+    padding-right: 9px;
+}
+
+.deleteItems button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.deleteItems button,
+p {
+    margin: 0;
+}
+
+.alignImage {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    margin-top: 10px;
+}
+
+/* For large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .imageGrid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columns */
+        gap: 15px;
+        padding: 30px;
+    }
+}
+
+/* For medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .imageGrid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns */
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+/* For small devices (phones, up to 767px) */
+@media (max-width: 767px) {
+    .imageGrid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 10px;
+        padding: 10px;
+    }
+}
